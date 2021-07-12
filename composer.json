@@ -1,0 +1,26 @@
+{
+    "name": "rmtop/rmsf-system-install",
+    "description": "\"system install\"",
+    "require": {
+        "guzzlehttp/guzzle": "~6.0",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "RmTop\\RmSystemInstall\\": "src/"
+        }
+    },
+    "extra": {
+        "think": {
+            "services": [
+                "RmTop\\RmExpress\\RmExpressService"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "jhz-code",
+            "email": "zhuok520@qq.com"
+        }
+    ]
+}
