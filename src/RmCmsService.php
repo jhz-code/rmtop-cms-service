@@ -31,6 +31,7 @@ class RmCmsService extends Service
             Route::post('delInstall', 'index/delInstall')->ajax();
         });
 
+
     }
 
 
