@@ -10,7 +10,6 @@ use PDOException;
 class RmEve
 {
 
-
     /**
      * 检查连接是否可用
      * @param $dbconn  //数据库连接
@@ -26,7 +25,6 @@ class RmEve
             }
         }
         return true;
-
     }
 
 
