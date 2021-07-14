@@ -1,7 +1,7 @@
 <?php
 
 
-namespace RmTop\RmSystemInstall\lib;
+namespace RmTop\RmCmsService\lib;
 
 
 use PDO;

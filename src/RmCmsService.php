@@ -1,12 +1,12 @@
 <?php
 
-namespace RmTop\RmSystemInstall;
+namespace RmTop\RmCmsService;
 
 
 use think\facade\Route;
 use think\Service;
 
-class RmSystemInstallService extends Service
+class RmCmsService extends Service
 {
     /**
      * 注册路由

@@ -9,13 +9,13 @@
     },
     "autoload": {
         "psr-4": {
-            "RmTop\\RmSystemInstall\\": "src/"
+            "RmTop\\RmCmsService\\": "src/"
         }
     },
     "extra": {
         "think": {
             "services": [
-                "RmTop\\RmSystemInstall\\RmSystemInstallService"
+                "RmCmsService"
             ]
         }
     },

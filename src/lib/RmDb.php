@@ -1,6 +1,6 @@
 <?php
 
-namespace RmTop\RmSystemInstall\lib;
+namespace RmTop\RmCmsService\lib;
 
 /**
  * 数据库操作
