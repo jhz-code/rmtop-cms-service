@@ -20,7 +20,7 @@ class RmTop extends Base
         $sys['Host']=  self::getSystemHost();
         $sys['Email']=  self::getSystemEmail();
         $sys['Phone']=  self::getSystemPhone();
-        $sys['agree']=  self::getAgree();
+        $sys['Agree']=  self::getAgree();
         View::assign('sys',$sys);
     }
 
