@@ -15,7 +15,7 @@
     "extra": {
         "think": {
             "services": [
-                "RmCmsService"
+                "RmTop\\RmCmsService\\RmCmsService"
             ]
         }
     },
