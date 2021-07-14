@@ -1,5 +1,5 @@
 {
-    "name": "rmtop/rmsf-system-install",
+    "name": "rmtop/rmsf-cms-service",
     "description": "\"system install\"",
     "require": {
         "guzzlehttp/guzzle": "~6.0",

@@ -5,6 +5,11 @@ namespace RmTop\RmTopCmsService\core;
 class RmTop
 {
 
+    public function __construct()
+    {
+
+    }
+
     function run(){
 
     }
