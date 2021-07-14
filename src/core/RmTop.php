@@ -1,6 +1,7 @@
 <?php
 
 namespace RmTop\RmCmsService\core;
+require dirname(__DIR__).'/config/version.php';
 
 class RmTop
 {
@@ -10,8 +11,5 @@ class RmTop
 
     }
 
-    function run(){
-            var_dump(RM_SYSTEM);
-    }
 
 }
