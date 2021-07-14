@@ -3,8 +3,11 @@
 namespace RmTop\RmCmsService;
 
 
+require_once "./config/version.php";
+
 use think\facade\Route;
 use think\Service;
+
 
 class RmCmsService extends Service
 {

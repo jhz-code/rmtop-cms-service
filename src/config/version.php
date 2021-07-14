@@ -1,10 +1,10 @@
 <?php
 
-const rm_system = "RmTop-CMS";
-const rm_version = "1.0.0";
-const rm_copyright = "rmsf.top";
-const rm_email = 'hezuo@ynrmsf.com';
-const rm_phone = '';
-const rm_host = 'rmsf.top';
-const rm_install = 'install.rmsf.top';
-const rm_upgrade = 'upgrade.rmsf.top';
+const RM_SYSTEM = "RmTop-CMS";
+const RM_VERSION = "1.0.0";
+const RM_COPYRIGHT = "rmsf.top";
+const RM_EMAIL = 'hezuo@ynrmsf.com';
+const RM_PHONE = '';
+const RM_HOST = 'rmsf.top';
+const RM_INSTALL = 'install.rmsf.top';
+const RM_UPGRADE = 'upgrade.rmsf.top';
