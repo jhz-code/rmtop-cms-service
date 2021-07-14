@@ -18,6 +18,7 @@ class RmCmsService extends Service
 
         $this->app->bind('RmTopCms', RmTop::class);
         RmTop::SysInfo();
+
         $this->registerRoutes(function (){
             Route::get('install', function () {
                 return redirect('/install');
@@ -31,7 +32,6 @@ class RmCmsService extends Service
             Route::post('build', 'index/build')->ajax();
             Route::post('delInstall', 'index/delInstall')->ajax();
         });
-
 
     }
 
