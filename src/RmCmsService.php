@@ -2,9 +2,7 @@
 
 namespace RmTop\RmCmsService;
 
-
-require_once dirname(__DIR__)."\config\version.php";
-
+use RmTop\RmTopCmsService\core\RmTop;
 use think\facade\Route;
 use think\Service;
 
@@ -17,6 +15,8 @@ class RmCmsService extends Service
      */
     public function register()
     {
+
+        $this->app->bind('RmTopCms', RmTop::class);
         $this->registerRoutes(function (){
             Route::get('install', function () {
                 return redirect('/install');

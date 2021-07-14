@@ -11,7 +11,7 @@ class RmTop
     }
 
     function run(){
-
+            var_dump(RM_SYSTEM);
     }
 
 }
