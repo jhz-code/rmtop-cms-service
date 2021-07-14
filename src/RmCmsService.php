@@ -17,8 +17,7 @@ class RmCmsService extends Service
     {
 
         $this->app->bind('RmTopCms', RmTop::class);
-        RmTop::SysInfo();
-
+        RmTop::SysInfo();//获取系统基础信息
         $this->registerRoutes(function (){
             Route::get('install', function () {
                 return redirect('/install');
@@ -32,7 +31,6 @@ class RmCmsService extends Service
             Route::post('build', 'index/build')->ajax();
             Route::post('delInstall', 'index/delInstall')->ajax();
         });
-
     }
 
 

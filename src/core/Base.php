@@ -85,6 +85,10 @@ class Base
         return RM_UPGRADE;
     }
 
+    static function getAgree(){
+        return RM_AGREE;
+    }
+
 
 
 }
