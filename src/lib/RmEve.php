@@ -63,7 +63,7 @@ class RmEve
 
 
     //环境变量一重检测
-    private function env_item_check($item)
+    static function env_item_check($item)
     {
         $item = array_merge($item, [
             'r' => $item['r'] == 'noRestriction' ? lang('noRestriction') : $item['r'],
@@ -78,7 +78,7 @@ class RmEve
 
 
     //环境变量二重检测
-    private function env_item_check_id($c)
+    static function env_item_check_id($c)
     {
 
         switch ($c['c']) {
@@ -273,7 +273,7 @@ class RmEve
     }
 
 
-    function file_size_format($size = 0, $dec = 2)
+  static  function file_size_format($size = 0, $dec = 2)
     {
         $unit = array("B", "KB", "MB", "GB", "TB", "PB");
         $pos = 0;
@@ -289,7 +289,7 @@ class RmEve
 
 
 
-    function mitobyte($value)
+   static function mitobyte($value)
     {
         return preg_replace_callback('/^\s*(\d+)\s*(?:([kmgt]?)b?)?\s*$/i', function ($m) {
             switch (strtolower($m[2])) {
