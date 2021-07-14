@@ -132,7 +132,7 @@ class RmEve
                 break;
             case 'disk_free_space':
                 if (function_exists('disk_free_space')) {
-                    return disk_free_space(root_path()) >= $this->mitobyte($c['r']) ? '<span class="correct_span">&radic;</span> ' . $this->file_size_format(disk_free_space(root_path())) : '<span class="error_span">&radic;</span> ' . $this->file_size_format(disk_free_space(root_path()));
+                    return disk_free_space(root_path()) >= self::mitobyte($c['r']) ? '<span class="correct_span">&radic;</span> ' . self::file_size_format(disk_free_space(root_path())) : '<span class="error_span">&radic;</span> ' . self::file_size_format(disk_free_space(root_path()));
                 } else {
                     return '<span class="error_span">&radic;</span> ' . lang('unknown');
                 }
