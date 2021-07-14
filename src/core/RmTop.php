@@ -1,6 +1,6 @@
 <?php
 
-namespace RmTop\RmTopCmsService\core;
+namespace RmTop\RmCmsService\core;
 
 class RmTop
 {
