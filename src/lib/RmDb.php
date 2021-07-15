@@ -26,9 +26,7 @@ class RmDb
         $dbpasswd = $config['password'];
         $pconnect = $config['pconnect'];
         $charset = $config['charset'];
-
         $dsn = "mysql:host=$dbhost;port=$dbport;dbname=$dbname;";
-
         try {
             $h_param = array(
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
@@ -47,6 +45,9 @@ class RmDb
         self::$mysql_instance = $conn;
         return $conn;
     }
+
+
+
 
 
     // 执行查询

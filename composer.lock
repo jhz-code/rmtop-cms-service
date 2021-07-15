@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b04e20e8b081277eeab5e2461e2361a6",
+    "content-hash": "2b6735f3e2141eb695698633e5508163",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -1222,16 +1222,16 @@
         },
         {
             "name": "topthink/think-orm",
-            "version": "v2.0.40",
+            "version": "v2.0.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/think-orm.git",
-                "reference": "1119d979b850849f3725856460cf108eec1c3eb8"
+                "reference": "64bbfdde01f4fd6939c2f695fceb08e6d764ac6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-orm/zipball/1119d979b850849f3725856460cf108eec1c3eb8",
-                "reference": "1119d979b850849f3725856460cf108eec1c3eb8",
+                "url": "https://api.github.com/repos/top-think/think-orm/zipball/64bbfdde01f4fd6939c2f695fceb08e6d764ac6b",
+                "reference": "64bbfdde01f4fd6939c2f695fceb08e6d764ac6b",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1277,9 +1277,9 @@
             ],
             "support": {
                 "issues": "https://github.com/top-think/think-orm/issues",
-                "source": "https://github.com/top-think/think-orm/tree/v2.0.40"
+                "source": "https://github.com/top-think/think-orm/tree/v2.0.41"
             },
-            "time": "2021-04-19T13:29:37+00:00"
+            "time": "2021-07-14T07:51:15+00:00"
         },
         {
             "name": "topthink/think-template",
@@ -1383,7 +1383,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
