@@ -32,7 +32,7 @@ class RmEve
     //环境变量检测
     static function env_check()
     {
-        define('PHP_EDITION', '7.1.0');
+//        define('PHP_EDITION', '7.1.0');
         $reData = [];
         $err = 0;
         $env_items = [
@@ -83,28 +83,28 @@ class RmEve
 
         switch ($c['c']) {
             case 'PHP_OS':
-                return '<span class="correct_span">&radic;</span> ' . PHP_OS;
+                return '<i class="icosn yes-check-c"></i> ' . PHP_OS;
                 break;
             case 'SERVER_SOFTWARE':
-                return '<span class="correct_span">&radic;</span> ' . $_SERVER[$c['c']];
+                return '<i class="icosn yes-check-c"></i> ' . $_SERVER[$c['c']];
                 break;
             case 'PHP_VERSION':
                 if (PHP_VERSION < $c['r']) {
                     //记录没达到环境要求标志,存入session
 
                     session('install_check_err', true);
-                    return '<span class="error_span">&radic;</span> ' . PHP_VERSION;
+                    return '<i class="icosn no-check-c"></i> ' . PHP_VERSION;
                 } else {
-                    return '<span class="correct_span">&radic;</span> ' . PHP_VERSION;
+                    return '<i class="icosn yes-check-c"></i> ' . PHP_VERSION;
                 }
                 break;
             case 'pdo':
                 if (extension_loaded('pdo')) {
-                    return '<span class="correct_span">&radic;</span> 已安装';
+                    return '<i class="icosn yes-check-c"></i> 已安装';
                 } else {
 
                     session('install_check_err', true);
-                    return '<span class="correct_span error_span">&radic;</span> 请安装PDO扩展';
+                    return '<i class="icosn no-check-c"></i> 请安装PDO扩展';
                 }
                 break;
             case 'session':
@@ -112,12 +112,12 @@ class RmEve
                     if (ini_get('session.auto_start')) {
                         return '<font color=green><i class="fa fa-check-square-o"></i> On</font>';
                     } else {
-                        return '<span class="correct_span">&radic;</span> 已安装 <font color=#9acd32><i class="fa fa-exclamation-triangle"></i> session.auto_start Off</font>';
+                        return '<i class="icosn yes-check-c"></i> 已安装 <font color=#9acd32><i class="fa fa-exclamation-triangle"></i> session.auto_start Off</font>';
                     }
 
                 } else {
                     session('install_check_err', true);
-                    return '<span class="correct_span error_span">&radic;</span> 请安装SESSION扩展';
+                    return '<i class="icosn no-check-c"></i> 请安装SESSION扩展';
                 }
                 break;
             case 'safe_mode':
@@ -128,13 +128,13 @@ class RmEve
                 }
                 break;
             case 'file_uploads':
-                return @ini_get('file_uploads') ? '<span class="correct_span">&radic;</span> ' . ini_get('upload_max_filesize') : '<span class="error_span">&radic;</span> ' . lang('unknown');
+                return @ini_get('file_uploads') ? '<i class="icosn yes-check-c"></i> ' . ini_get('upload_max_filesize') : '<i class="icosn no-check-c"></i> ' . lang('unknown');
                 break;
             case 'disk_free_space':
                 if (function_exists('disk_free_space')) {
-                    return disk_free_space(root_path()) >= self::mitobyte($c['r']) ? '<span class="correct_span">&radic;</span> ' . self::file_size_format(disk_free_space(root_path())) : '<span class="error_span">&radic;</span> ' . self::file_size_format(disk_free_space(root_path()));
+                    return disk_free_space(root_path()) >= self::mitobyte($c['r']) ? '<i class="icosn yes-check-c"></i> ' . self::file_size_format(disk_free_space(root_path())) : '<i class="icosn no-check-c"></i> ' . self::file_size_format(disk_free_space(root_path()));
                 } else {
-                    return '<span class="error_span">&radic;</span> ' . lang('unknown');
+                    return '<i class="icosn no-check-c"></i> ' . lang('unknown');
                 }
                 break;
             case 'gd_info':
@@ -154,12 +154,12 @@ class RmEve
                         return '<font color=green><i class="fa fa-check-square-o"></i> On 支持</font> ';
                     } else {
                         session('install_check_err', true);
-                        return '<font color=red><span class="correct_span">&radic;</span> 已安装 <i class="fa fa-exclamation"></i> Off 不支持</font>';
+                        return '<font color=red><i class="icosn yes-check-c"></i> 已安装 <i class="fa fa-exclamation"></i> Off 不支持</font>';
                     }
 
                 } else {
                     session('install_check_err', true);
-                    return '<span class="error_span">&radic;</span> 未安装';
+                    return '<i class="icosn no-check-c"></i> 未安装';
                 }
                 break;
             case 'finfo_open':
@@ -167,7 +167,7 @@ class RmEve
                     return '<font color=green><i class="fa fa-check-square-o"></i> On 支持</font> ';
                 } else {
                     session('install_check_err', true);
-                    return '<font color=red><span class="correct_span">&radic;</span> 已安装 <i class="fa fa-exclamation"></i> Off 不支持</font>';
+                    return '<font color=red><i class="icosn yes-check-c"></i> 已安装 <i class="fa fa-exclamation"></i> Off 不支持</font>';
                 }
 
                 break;
@@ -177,12 +177,12 @@ class RmEve
                         return '<font color=green><i class="fa fa-check-square-o"></i> On 支持</font> ';
                     } else {
                         session('install_check_err', true);
-                        return '<font color=red><span class="correct_span">&radic;</span> 已安装 <i class="fa fa-close"></i> Off 不支持</font>';
+                        return '<font color=red><i class="icosn yes-check-c"></i> 已安装 <i class="fa fa-close"></i> Off 不支持</font>';
                     }
 
                 } else {
                     session('install_check_err', true);
-                    return '<span class="error_span">&radic;</span> 未安装';
+                    return '<i class="icosn no-check-c"></i> 未安装';
                 }
                 break;
             case 'bcmath':
@@ -200,12 +200,12 @@ class RmEve
                         return '<font color=green><i class="fa fa-check-square-o"></i> On 支持</font> ';
                     } else {
                         session('install_check_err', true);
-                        return '<font color=red><span class="correct_span">&radic;</span> 已安装 <i class="fa fa-close"></i> Off 不支持</font>';
+                        return '<font color=red><i class="icosn yes-check-c"></i> 已安装 <i class="fa fa-close"></i> Off 不支持</font>';
                     }
 
                 } else {
                     session('install_check_err', true);
-                    return '<span class="error_span">&radic;</span> 未安装';
+                    return '<i class="icosn no-check-c"></i> 未安装';
                 }
                 break;
             case 'pdo_mysql':
@@ -267,13 +267,13 @@ class RmEve
 
             default:
                 session('install_check_err', true);
-                return '<span class="error_span">&radic;</span>  无此检测项数据！';
+                return '<i class="icosn no-check-c"></i>  无此检测项数据！';
         }
 
     }
 
 
-  static  function file_size_format($size = 0, $dec = 2)
+    static  function file_size_format($size = 0, $dec = 2)
     {
         $unit = array("B", "KB", "MB", "GB", "TB", "PB");
         $pos = 0;
@@ -289,7 +289,7 @@ class RmEve
 
 
 
-   static function mitobyte($value)
+    static function mitobyte($value)
     {
         return preg_replace_callback('/^\s*(\d+)\s*(?:([kmgt]?)b?)?\s*$/i', function ($m) {
             switch (strtolower($m[2])) {
