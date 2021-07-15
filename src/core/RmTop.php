@@ -2,6 +2,7 @@
 
 namespace RmTop\RmCmsService\core;
 
+use RmTop\RmCmsService\lib\RmDb;
 use RmTop\RmCmsService\lib\RmEve;
 use think\facade\View;
 
@@ -35,5 +36,16 @@ class RmTop extends Base
        return RmEve::env_check();
     }
 
+
+    /**
+     * 测试数据库连接
+     * @return \PDO|null
+     * @throws \ErrorException
+     */
+    static function getMysqlConn(): ?\PDO
+    {
+        $params = request()->param();
+        return RmDb::get_mysql_conn($params);
+    }
 
 }
