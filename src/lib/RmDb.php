@@ -31,9 +31,9 @@ class RmDb
             $h_param = array(
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
             );
-            if ($charset != '') {
-                $h_param[\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES ' . $charset; //設置默認編碼
-            }
+//            if ($charset != '') {
+//                $h_param[\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES ' . $charset; //設置默認編碼
+//            }
             if ($pconnect) {
                 $h_param[\PDO::ATTR_PERSISTENT] = true;
             }
@@ -62,8 +62,6 @@ class RmDb
         $result = $sth->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
-
-
 
     // 重置连接
     public static function reset_connect(){

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="format-detection" content="email=no" />
+    <meta name="wap-font-scale"  content="no" />
+    <meta name="viewport" content="user-scalable=no, width=device-width" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$sys.Name}</title>
+    <meta name="description" content="{$sys.Name}">
+    <meta name="keywords" content="{$sys.Name}">
+    <link href="/static/rmtop/css/install.css" rel="stylesheet" type="text/css" />
+    <script src="/static/rmtop/js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+<div class="insd-mian">
+
+    <div class="head-bag">欢迎使用{$sys.Name}！</div>
+
+    <div class="checkt-mian buy-cir">
+        <table class="table margin-0">
+            <thead>
+            <tr>
+                <th class="buy-gray"><div class="table-head-box">项目</div></th>
+                <th class="buy-gray"><div class="table-head-box">推荐要求</div></th>
+                <th class="buy-gray"><div class="table-head-box">是否通过</div></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {volist name="envList" id="vo" }
+            <tr>
+                <td style="text-align: left">{$vo.n} :{$vo.c}</td>
+                <td style="text-align: left">{$vo.b}</td>
+                <td style="text-align: left">{$vo.rs|raw}</td>
+            </tr>
+            {/volist}
+
+            </tbody>
+
+            <thead>
+            <tr>
+                <th class="buy-gray"><div class="table-head-box">目录</div></th>
+                <th class="buy-gray" colspan="3"><div class="table-head-box">可写</div></th>
+            </tr>
+            </thead>
+            <tbody>
+               <tr><td>cache</td><td colspan="3"><i class="icosn yes-check-c"></i></td></tr>
+               <tr><td>config</td><td colspan="3"><i class="icosn yes-check-c"></i></td></tr>
+               <tr><td>date</td><td colspan="3"><i class="icosn yes-check-c"></i></td></tr>
+               <tr><td>template</td><td colspan="3"><i class="icosn yes-check-c"></i></td></tr>
+               <tr><td>install</td><td colspan="3"><i class="icosn yes-check-c"></i></td></tr>
+               <tr><td>upload</td><td colspan="3"><i class="icosn yes-check-c"></i></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-dyut">
+        <a class="form-last" href="/install/step/main">上一步</a>
+        <a class="form-next" href="/install/step/db">下一步</a>
+    </div>
+</div>
+<div class="login-ft text-center">
+    <div class="copyr-ight text-center">
+        <p>  CoprRight © <a href="{$sys.Host}" target="_blank">{$sys.Name} </a> </p>
+    </div>
+</div>
+
+</body>
+</html>

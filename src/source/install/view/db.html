@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="format-detection" content="email=no" />
+    <meta name="wap-font-scale"  content="no" />
+    <meta name="viewport" content="user-scalable=no, width=device-width" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$sys.Name}</title>
+    <meta name="description" content="{$sys.Name}">
+    <meta name="keywords" content="{$sys.Name}">
+    <link href="/static/rmtop/css/install.css" rel="stylesheet" type="text/css" />
+    <script src="/static/rmtop/js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+<div class="insd-mian">
+    <div class="head-bag">欢迎使用{$sys.Name}！</div>
+    <div class="steps">
+        <ul class="progressbar">
+            <li class="active">使用协议</li>
+            <li class="active">检查环境</li>
+            <li class="active">配置系统</li>
+            <li class="">完成安装</li>
+        </ul>
+    </div>
+
+<!--    步骤1-->
+    <div class="checkt-mian" id="first">
+        <div class="MyS_tele">MySQL设置</div>
+        <form action="#" method="post">
+            <div class="reg-box">
+                <div class="part1">
+                    <div class="item-t">
+                        <span class="intent-label f-fl">数据库地址</span>
+                        <div class="item-ifo f-fl">
+                            <input type="text" name="hostname" id="host_name"  value="localhost" class="txt03"></div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">端口</span>
+                        <div class="item-ifo f-fl">
+                            <input type="text" name="port" id="port" value="3306" class="txt03"></div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">用户名</span>
+                        <div class="item-ifo f-fl">
+                            <input type="text" name="username" id="username" value="root"  class="txt03">
+                        </div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">密码</span>
+                        <div class="item-ifo f-fl">
+                            <input type="password" name="password" id="password" value=""  class="txt03">
+                            <label class="pass" id="J_install_form"></label>
+                        </div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">表前缀</span>
+                        <div class="item-ifo f-fl">
+                            <input type="text" class="txt03" placeholder="rmtop_" id="prefix"  name="prefix" value="rmtop_">
+                            <label class="pass"><span>推荐使用rmtop_</span></label>
+                        </div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">数据库名</span>
+                        <div class="item-ifo f-fl">
+                            <input type="text" name="database" value="" id="database"  class="txt03">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-dyut">
+            <a class="form-last" href="/install/step/check">上一步</a>
+            <a class="form-next nav-next1" style="width: 120px"><span id="dbbtn">保存配置</span></a>
+        </div>
+    </div>
+
+<!--    步骤2-->
+    <div class="checkt-mian" id="secend"  style="display: none">
+        <div class="MyS_tele">管理员设置</div>
+        <form action="#" method="post">
+            <div class="reg-box">
+                <div class="part1">
+                    <div class="item-t">
+                        <span class="intent-label f-fl">后台登录域名</span>
+                        <div class="item-ifo f-fl"><input type="text" name="domain" id="domain" class="txt03"></div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">管理员</span>
+                        <div class="item-ifo f-fl"><input type="text" name="admin" id="admin" class="txt03"></div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">密码</span>
+                        <div class="item-ifo f-fl"><input type="password" name="adminpass" id="adminpass" class="txt03"></div>
+                    </div>
+                    <div class="item-t">
+                        <span class="intent-label f-fl">重复密码</span>
+                        <div class="item-ifo f-fl"><input type="password" name="repadminpass" id="repadminpass" class="txt03"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-dyut">
+            <a class="form-last nav-next3">上一步</a>
+            <a class="form-next nav-next2">安装系统</a>
+        </div>
+    </div>
+
+<!--    步骤3-->
+    <div class="checkt-mian su-padding" id="lasty" style="display: none">
+       <div class="houd-sql" id="installState">
+       </div>
+
+        <div class="form-dyut">
+            <button class="form-forbidden" type="button"  id="finishinstall"  disabled  style="width: 120px">完成</button>
+        </div>
+    </div>
+
+
+</div>
+<div class="login-ft text-center">
+    <div class="copyr-ight text-center">
+        <p>  CoprRight © <a href="{$sys.Host}" target="_blank">{$sys.Name} </a> </p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var corn = false;
+    var s=['1','0','','false','0'],ss=0,status=-1;
+    $('.nav-next1').click(function(e){
+       if( $("#host_name").val() && $("#port").val() && $("#username").val()  && $("#password").val()  && $("#database").val()  && $("#prefix").val() ){
+
+           if(corn){
+               $("#first").hide();
+               $("#secend").show();
+               $("#lasty").hide();
+           }else{
+               alert('数据库连接失败')
+               return false;
+           }
+        }else{
+            alert('请完善数据库配置');
+            return false;
+        }
+
+    })
+    $('.nav-next2').click(function(e){
+        if( $('#admin').val() && $('#adminpass').val() && $('#adminpass').val() && $('#domain').val() ){
+            $("#first").hide();
+            $("#secend").hide();
+            $("#lasty").show();
+            reloads(s,ss,status);
+        }else{
+            alert('请添加管理员账户');
+            return false;
+        }
+      });
+    $('.nav-next3').click(function(e){
+        $("#first").show();
+        $("#secend").hide();
+        $("#lasty").hide();
+    })
+
+
+    //执行安装
+    function reloads(s,ss,status) {
+        $.ajax({
+            url: '/install/build',
+            method: 'POST',
+            async: true,
+            data: {
+                s:s,
+                ss:ss,
+                status:status,
+                test: 'pdoLink',
+                host: $("#host_name").val(),
+                port: $("#port").val(),
+                user: $("#username").val(),
+                password: $("#password").val(),
+                dbname: $("#database").val(),
+                prefix: $("#prefix").val(),
+                pconnect: 0,
+                domain: $("#domain").val(),
+                adminpass: $("#adminpass").val(),
+                admin: $("#admin").val(),
+            },
+            success: function (data) {
+                if(data.status===0){
+                    setTimeout(reloads(data.s,data.ss,data.status),1000);
+                    $('#installState').prepend("<p>"+data.msg+"</p>")
+                }else if(data.status==='finish'){
+                    $('#installState').prepend("<p>"+data.msg+"</p>")
+                    $('#finishinstall').attr("disabled",false);
+                    $('#finishinstall').css("background-color","#2196f3");
+                }else if(data.status == -2){
+                    $('#installState').prepend("<p>"+data.msg+"</p>")
+                }
+
+
+            },
+            complete:function(){
+                console.log('complete');
+            },
+            fail: function (data) {
+                alert("请求失败，请查看你的程序是否正确！");
+                console.log(data)
+            }
+        })
+    }
+
+    $("#password").blur(function(){
+        $.ajax({
+            url: '/install/test',
+            method: 'POST',
+            async: true,
+            data: {
+                test: 'pdoLink',
+                host: $("#host_name").val(),
+                port: $("#port").val(),
+                user: $("#username").val(),
+                password: $("#password").val(),
+                dbname: $("#database").val(),
+                prefix: $("#prefix").val(),
+                pconnect: 0,
+            },
+            success: function (data) {
+                if(data.status){
+                     corn = true;
+                    $("#J_install_form").html('<i class="icosn yes-check-c"></i>'+data.msg);
+                }else{
+                    $("#J_install_form").html("<span style='color: red'>连接失败！</span>");
+                }
+
+            },
+            complete:function(){
+                console.log('complete');
+            },
+            fail: function (data) {
+                alert("请求失败，请查看你的程序是否正确！");
+                console.log(data)
+            }
+        })
+    });
+
+
+    $("#host_name").blur(function(){
+        $.ajax({
+            url: '/install/test',
+            method: 'POST',
+            async: true,
+            data: {
+                test: 'pdoLink',
+                host: $("#host_name").val(),
+                port: $("#port").val(),
+                user: $("#username").val(),
+                password: $("#password").val(),
+                dbname: $("#database").val(),
+                prefix: $("#prefix").val(),
+                pconnect: 0,
+            },
+            success: function (data) {
+                if(data.status){
+                    corn = true;
+                    $("#J_install_form").html('<i class="icosn yes-check-c"></i>'+data.msg);
+                    $("#dbbtn").html('下一步')
+                }else{
+                    $("#J_install_form").html("<span style='color: red'>连接失败！</span>");
+                    $("#dbbtn").html('连接失败')
+                }
+
+            },
+            complete:function(){
+                console.log('complete');
+            },
+            fail: function (data) {
+                alert("请求失败，请查看你的程序是否正确！");
+                console.log(data)
+            }
+        })
+    });
+
+
+    $("#port").blur(function(){
+        $.ajax({
+            url: '/install/test',
+            method: 'POST',
+            async: true,
+            data: {
+                test: 'pdoLink',
+                host: $("#host_name").val(),
+                port: $("#port").val(),
+                user: $("#username").val(),
+                password: $("#password").val(),
+                dbname: $("#database").val(),
+                prefix: $("#prefix").val(),
+                pconnect: 0,
+            },
+            success: function (data) {
+                if(data.status){
+                    corn = true;
+                    $("#J_install_form").html('<i class="icosn yes-check-c"></i>'+data.msg);
+                    $("#dbbtn").html('下一步')
+                }else{
+                    $("#J_install_form").html("<span style='color: red'>连接失败！</span>");
+                    $("#dbbtn").html('连接失败')
+                }
+
+            },
+            complete:function(){
+                console.log('complete');
+            },
+            fail: function (data) {
+                alert("请求失败，请查看你的程序是否正确！");
+                console.log(data)
+            }
+        })
+    });
+
+    $("#username").blur(function(){
+        $.ajax({
+            url: '/install/test',
+            method: 'POST',
+            async: true,
+            data: {
+                test: 'pdoLink',
+                host: $("#host_name").val(),
+                port: $("#port").val(),
+                user: $("#username").val(),
+                password: $("#password").val(),
+                dbname: $("#database").val(),
+                prefix: $("#prefix").val(),
+                pconnect: 0,
+            },
+            success: function (data) {
+                if(data.status){
+                    corn = true;
+                    $("#J_install_form").html('<i class="icosn yes-check-c"></i>'+data.msg);
+                    $("#dbbtn").html('下一步')
+                }else{
+                    $("#J_install_form").html("<span style='color: red'>连接失败！</span>");
+                    $("#dbbtn").html('连接失败')
+                }
+
+            },
+            complete:function(){
+                console.log('complete');
+            },
+            fail: function (data) {
+                alert("请求失败，请查看你的程序是否正确！");
+                console.log(data)
+            }
+        })
+    });
+
+
+    $('#finishinstall').click(function () {
+        window.location = "/install/step/finish"
+    })
+
+</script>
+</body>
+</html>

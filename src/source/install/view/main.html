@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="format-detection" content="email=no" />
+    <meta name="wap-font-scale"  content="no" />
+    <meta name="viewport" content="user-scalable=no, width=device-width" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$sys.Name}</title>
+    <meta name="description" content="{$sys.Name}">
+    <meta name="keywords" content="{$sys.Name}">
+    <link href="/static/rmtop/css/install.css" rel="stylesheet" type="text/css" />
+    <script src="/static/rmtop/js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+<div class="insd-mian">
+    <div class="head-bag">欢迎使用{$sys.Name}！</div>
+    <div class="steps">
+        <ul class="progressbar">
+            <li class="active">使用协议</li>
+            <li class="">检查环境</li>
+            <li class="">配置系统</li>
+            <li class="">完成安装</li>
+        </ul>
+    </div>
+    <div class="cunt-mian">
+        <h3>嗨，您好！欢迎使用{$sys.Name}系统</h3>
+        <p>在开始之前，请准备好如下信息：</p>
+        <p>{$sys.Agree}</p>
+
+    </div>
+    <div class="form-dyut">
+        <div class="indblock_block_agree">
+            <div class="fl">
+                <p class="checkbox-y" style="display: none;"></p>
+            </div>
+            <label class="fl">我已阅读并同意此协议</label>
+        </div>
+        <a class="form-next" href="/install/step/check">下一步</a>
+    </div>
+</div>
+<div class="login-ft text-center">
+    <div class="copyr-ight text-center">
+        <p>  CoprRight © <a href="{$sys.Host}" target="_blank">{$sys.Name} </a> </p>
+    </div>
+</div>
+
+<script>
+    $(function (){
+        $(".indblock_block_agree").click(function (){
+            var display=$(this).find("p").css("display");
+            if(display == "block"){
+                $(this).find("p").css("display","none");
+            }else{
+                $(this).find("p").css("display","block");
+            }
+        })
+    })
+</script>
+
+</body>
+</html>
