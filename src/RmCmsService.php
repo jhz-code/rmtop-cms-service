@@ -15,9 +15,17 @@ class RmCmsService extends Service
      */
     public function register()
     {
-
         $this->app->bind('RmTopCms', RmTop::class);
-         RmTop::SysInfo();//获取系统基础信息
+        $this->sys_ini();
+
+    }
+
+
+    /**
+     *
+     */
+    public function sys_ini(){
+        RmTop::SysInfo();//获取系统基础信息
     }
 
 
