@@ -3,6 +3,7 @@
 namespace RmTop\RmCmsService\lib;
 
 use PDO;
+use PDOStatement;
 use think\db\exception\PDOException;
 
 /**
@@ -94,5 +95,20 @@ class RmDb
         return true;
 
     }
+
+
+    /**
+     * 执行数据库
+     * @param $pdo \PDO
+     * @param $sql string
+     * @return bool|PDOStatement
+     */
+    function execSql($pdo, $sql) {
+        $statement = $pdo->prepare($sql);
+        $statement->execute();
+        return $statement;
+    }
+
+
 
 }
