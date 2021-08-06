@@ -2,6 +2,9 @@
 
 namespace RmTop\RmCmsService\lib;
 
+use PDO;
+use think\db\exception\PDOException;
+
 /**
  * 数据库操作
  * Class RmDb
@@ -66,6 +69,30 @@ class RmDb
     // 重置连接
     public static function reset_connect(){
         self::$mysql_instance = null;
+    }
+
+
+
+    /**
+     **
+     * 检查连接是否可用
+     * @param Link $dbconn 数据库连接
+     * @return Boolean
+     */
+
+   static  function pdo_ping($dbconn)
+    {
+        try {
+            $dbconn->getAttribute(PDO::ATTR_SERVER_INFO);
+        } catch (PDOException $e) {
+            if (strpos($e->getMessage(), 'MySQL server has gone away') !== false) {
+                return false;
+            }
+
+
+        }
+        return true;
+
     }
 
 }
