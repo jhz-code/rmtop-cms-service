@@ -80,21 +80,53 @@ class RmTemp
 
 
     /**
-     * 切换模板时导入相关数据
+     * 模板数据导入
+     * @param string $sql
+     * @return bool
      */
-    static function ImportTempSql(string $sql_path){
+    static function ImportTempSql(string $sql){
+        $db  = self::getDbConfig();
+        try {
+            $conn = new PDO("mysql:host=" . $db['host'] . ";dbname=".$db['name'].";port=" . $db['port'] . "", $db['user'], $db['pass']);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//允许抛出异常
+        } catch (PDOException $e) {
+            echo $e->getMessage();//数据库连接不成功抛出异常
+            exit;
+        }
+        try {
+            if (file_exists($sql)){//如果文件存在
+                $sql_stream = file_get_contents($sql);//读取整个文件内容
+                $sql_stream = rtrim($sql_stream);//去掉末尾空格
+                //切割单条sql语句生成数组
+                $sql_array = explode(";", $sql_stream);
+                //遍历该数组
+                foreach ($sql_array as $value) {
+                    if (!empty($value)) { //数组最后一个是空数组，所以需要判断一下
+                        $sql = str_replace(" $$$ ", ";", $value) . ";"; //将该条sql语句中' $$$ '转换回；
+                        if(preg_match('/DROP TABLE IF EXISTS `([A-Za-z0-9]+)_([^ ]*)`/', $sql, $matches)){
+                            $sql = str_replace('`' . $matches[1] . '_', '`' . $db['table_prefix'], $sql);//替换表前缀
+                        }
+                        if(preg_match('/CREATE TABLE `([A-Za-z0-9]+)_([^ ]*)`/', $sql, $matches)){
+                            $sql = str_replace('`' . $matches[1] . '_', '`' . $db['table_prefix'], $sql);//替换表前缀
+                        }
+                        if(preg_match('/INSERT INTO `([A-Za-z0-9]+)_([^ ]*)`/is', $sql, $matches)){
+                            $sql = str_replace('`' . $matches[1] . '_', '`' . $db['table_prefix'], $sql);//替换表前缀
+                        }
 
-
+                        $conn->exec($sql); //执行该语句
+                        echo $sql."<br/><per>";
+                        echo "成功插入数据：<br/><per>" . $sql . ";<per/><br/><br/>";
+                    }
+                }
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage(); //执行异常则抛出异常
+            exit;
+        }
     }
 
 
-
-    /**
-     * 导出模板文件
-     */
-    static function ExportTempFile(){
-
-    }
 
 
 

@@ -131,7 +131,7 @@ class RmDb
 
 
 
-    static function resMsg($s, $title, $content, $flag = true)
+    static function resMsg($s, $title, $content, $flag = true): string
     {
         if ($flag) {
             $cs = 'i-success';
