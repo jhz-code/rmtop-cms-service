@@ -81,8 +81,8 @@ class RmDb
      * @return Boolean
      */
 
-   static  function pdo_ping($dbconn)
-    {
+   static  function pdo_ping($dbconn): bool
+   {
         try {
             $dbconn->getAttribute(PDO::ATTR_SERVER_INFO);
         } catch (PDOException $e) {
