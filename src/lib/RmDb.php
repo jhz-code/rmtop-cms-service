@@ -75,6 +75,39 @@ class RmDb
 
 
     /**
+     * 确认数据库
+     * @param $config
+     * @return bool
+     */
+    static function check_db($config)
+    {
+        // 创建数据连接
+        $host = $config['host'];
+        $dbname = $config['dbname'];
+        $port = $config['port']??'3306';
+        $user = $config['user'];
+        $password = $config['password'];
+
+        $pdoConn = new \PDO("mysql:host=$host;port=$port", $user, $password);
+        $query = $pdoConn->prepare("SHOW TABLES FROM $dbname")->execute();
+        // 判断连接是否有效
+        $status = self::pdo_ping($pdoConn);
+        if ($status) {
+            $query = $pdoConn->prepare("SHOW TABLES FROM $dbname")->execute();
+            $pdoConn = null;
+            if (!$query) {
+                return true;
+            }
+            return false;
+        } else {
+            $pdoConn = null;
+            return false;
+        }
+    }
+
+
+
+    /**
      **
      * 检查连接是否可用
      * @param Link $dbconn 数据库连接
@@ -97,17 +130,20 @@ class RmDb
     }
 
 
-    /**
-     * 执行数据库
-     * @param $pdo \PDO
-     * @param $sql string
-     * @return bool|PDOStatement
-     */
-    function execSql($pdo, $sql) {
-        $statement = $pdo->prepare($sql);
-        $statement->execute();
-        return $statement;
+
+    static function resMsg($s, $title, $content, $flag = true)
+    {
+        if ($flag) {
+            $cs = 'i-success';
+            $csfa = 'fa fa-check';
+        } else {
+            $cs = 'i-error';
+            $csfa = 'fa fa-times';
+        }
+        $msg = '<li class="' . $cs . '"><span class="i-step">【第' . $s[0] . '步】</span>  <i><span class="i-title">##' . $title . '##</span> </i>  <span class="i-content">' . $s[0] . '-' . $s[1] . '------' . $content . '------   [<i class="' . $csfa . '" aria-hidden="true"></i>] </span> <i class="i-time">' . date('Y-m-d H:i:s') . '</i></li>';
+        return $msg;
     }
+
 
 
 
