@@ -73,7 +73,7 @@ class RmTemp
         }
         //表间的分割线
         $mysql .= "-- ---------------------------------------------------\n\r";
-        $filename = "top_temp" . ".sql"; //导出的文件名
+        $filename = "top_temp.sql"; //导出的文件名
         file_put_contents($filename, $mysql);//导出sql文件
         return $filename;
     }
