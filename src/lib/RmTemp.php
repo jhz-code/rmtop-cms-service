@@ -76,6 +76,9 @@ class RmTemp
                 $values = "";//准备空字符串装载insert value值
                 $items = "";//准备空字符串装载该表字段名
                 while ($item_query = $iteams_query->fetch(PDO::FETCH_ASSOC)) { //用关联查询方式返回表中字段名和值的数组
+                    if($table_name == $db['table_prefix']."extends_single"){
+                        $item_query['text'] = "演示数据演示数据演示数据演示数据演示数据演示数据演示数据演示数据";
+                    }
                     $item_names = array_keys($item_query);//取出该数组键值 即字段名
                     $item_names = array_map("addslashes", $item_names);//将特殊字符转译加\
                     $items = join('`,`', $item_names); //联合字段名 如：items1`,`item2 `符号为反引号 键盘1旁边 字段名用反引号括起
@@ -96,6 +99,93 @@ class RmTemp
         //表间的分割线
         $mysql .= "-- ---------------------------------------------------\n\r";
         $filename = $to_file_name."/top_temp.sql"; //导出的文件名
+        file_put_contents($filename, $mysql);//导出sql文件
+        self::BackupTemSql($savePath);
+        return $filename;
+    }
+
+
+    static  function BackupTemSql($savePath){
+        $db  = self::getDbConfig();
+        $to_file_name = $savePath;
+        try {
+            $conn = new PDO("mysql:host=" . $db['host'] . ";dbname=".$db['name'].";port=" . $db['port'] . "", $db['user'], $db['pass']);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//设置调优参数，遇到错误抛出异常
+        } catch (PDOException $e) {
+            echo $e->getMessage();//如果连接异常则抛出错误信息
+            exit;
+        }
+
+        try {
+            $conn1 = new PDO("mysql:host=" . $db['host'] . ";dbname=".$db['name'].";port=" . $db['port'] . "", $db['user'], $db['pass']);
+            $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//设置调优参数，遇到错误抛出异常
+        } catch (PDOException $e) {
+            echo $e->getMessage();//如果连接异常则抛出错误信息
+            exit;
+        }
+        //将这些表记录到一个数组
+        $tempSqlArr = [
+            'advertise',
+            'advertise_group',
+            'column',
+            'config',
+            'config_group',
+            'extends_category',
+            'navs',
+            'navs_category',
+            'extends_single',
+        ];
+
+        $params_table  = [];
+        $list = $conn1->query('SHOW TABLES like "%params%";"');
+        $tabList = $list->fetchAll();
+        if(is_array($tabList)){
+            foreach ($tabList as $key => $val){
+                $params_table[] = $val[0];
+            }
+        }
+        //加表前缀
+        foreach ($tempSqlArr as $key => $val){
+            $tempSqlArr[$key] = $db['table_prefix'].$val;
+        }
+        $tempSqlArr = array_merge($params_table,$tempSqlArr);
+
+        $mysql = "-- ----------------------------\r\n";
+        $mysql .= "-- 日期：" . date("Y-m-d H:i:s", time()) . "\r\n";
+        //将每个表的表结构导出到文件
+        foreach ($tempSqlArr as $val) {
+            $table_name = $val;
+            $mysql.="DROP TABLE IF EXISTS `$table_name`;\n";//每个表前都准备Drop语句
+            $table_query = $conn->query("show create table `$table_name`");//取出该表建表信息的结果集
+            $create_sql = $table_query->fetch();//利用fetch方法取出该结果集对应的数组
+            $mysql.=$create_sql['Create Table'] . ";\r\n\r\n";//写入建表信息
+            $flag = 1;
+            if ($flag != 0) {//如果标志位不是0则继续取出该表内容生成insert语句
+                $iteams_query = $conn->prepare("select * from `$table_name`");//取出该表所有字段结果集
+                $iteams_query->execute();
+                $values = "";//准备空字符串装载insert value值
+                $items = "";//准备空字符串装载该表字段名
+                while ($item_query = $iteams_query->fetch(PDO::FETCH_ASSOC)) { //用关联查询方式返回表中字段名和值的数组
+                    $item_names = array_keys($item_query);//取出该数组键值 即字段名
+                    $item_names = array_map("addslashes", $item_names);//将特殊字符转译加\
+                    $items = join('`,`', $item_names); //联合字段名 如：items1`,`item2 `符号为反引号 键盘1旁边 字段名用反引号括起
+                    $item_values = array_values($item_query);//取出该数组值 即字段对应的值
+                    $item_values = array_map("addslashes", $item_values);//将特殊字符转译加\
+                    $value_string = join("','", $item_values);//联合值 如：value1','value2 值用单引号括起
+                    $value_string = "('" . $value_string . "'),";//值两边加括号
+                    $values .= "\n" . $value_string;//最后返回给$value
+                }
+                if ($values != "") {//如果$values不为空，即该表有内容
+                    //写入insert语句
+                    $insert_sql = "INSERT INTO `$table_name` (`$items`) VALUES" . rtrim($values, ",") . ";\n\r";
+                    //将该语句写入$mysql
+                    $mysql .= $insert_sql;
+                }
+            }
+        }
+        //表间的分割线
+        $mysql .= "-- ---------------------------------------------------\n\r";
+        $filename = $to_file_name."/back_up_top_temp.sql"; //导出的文件名
         file_put_contents($filename, $mysql);//导出sql文件
         return $filename;
     }
@@ -136,7 +226,7 @@ class RmTemp
                         }
 
                         $conn->exec($sql); //执行该语句
-                       // echo  "成功插入数据：<br/><per>" . $sql . ";<per/><br/><br/>";
+                        // echo  "成功插入数据：<br/><per>" . $sql . ";<per/><br/><br/>";
                     }
                 }
                 return true;
