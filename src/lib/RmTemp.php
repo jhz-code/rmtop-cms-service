@@ -25,6 +25,14 @@ class RmTemp
             echo $e->getMessage();//如果连接异常则抛出错误信息
             exit;
         }
+
+        try {
+            $conn1 = new PDO("mysql:host=" . $db['host'] . ";dbname=".$db['name'].";port=" . $db['port'] . "", $db['user'], $db['pass']);
+            $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//设置调优参数，遇到错误抛出异常
+        } catch (PDOException $e) {
+            echo $e->getMessage();//如果连接异常则抛出错误信息
+            exit;
+        }
         //将这些表记录到一个数组
         $tempSqlArr = [
             'advertise',
@@ -38,10 +46,10 @@ class RmTemp
         ];
 
         $params_table  = [];
-        $list = $conn->query('SHOW TABLES like "%params%";"');
+        $list = $conn1->query('SHOW TABLES like "%params%";"');
         $tabList = $list->fetchAll();
         if(is_array($tabList)){
-            foreach ($list->fetchAll() as $key => $val){
+            foreach ($tabList as $key => $val){
                 $params_table[] = $val[0];
             }
         }
@@ -50,11 +58,12 @@ class RmTemp
             $tempSqlArr[$key] = $db['table_prefix'].$val;
         }
         $tempSqlArr = array_merge($params_table,$tempSqlArr);
+
         $mysql = "-- ----------------------------\r\n";
         $mysql .= "-- 日期：" . date("Y-m-d H:i:s", time()) . "\r\n";
         //将每个表的表结构导出到文件
         foreach ($tempSqlArr as $val) {
-            $table_name = $db['table_prefix'].$val;
+            $table_name = $val;
             $mysql.="DROP TABLE IF EXISTS `$table_name`;\n";//每个表前都准备Drop语句
             $table_query = $conn->query("show create table `$table_name`");//取出该表建表信息的结果集
             $create_sql = $table_query->fetch();//利用fetch方法取出该结果集对应的数组
