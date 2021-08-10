@@ -114,7 +114,7 @@ class RmTemp
                         }
 
                         $conn->exec($sql); //执行该语句
-                        echo  "成功插入数据：<br/><per>" . $sql . ";<per/><br/><br/>";
+                       // echo  "成功插入数据：<br/><per>" . $sql . ";<per/><br/><br/>";
                     }
                 }
                 return true;
