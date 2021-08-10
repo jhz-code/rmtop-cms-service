@@ -43,6 +43,7 @@ class RmTemp
             'extends_category',
             'navs',
             'navs_category',
+            'extends_single',
         ];
 
         $params_table  = [];
