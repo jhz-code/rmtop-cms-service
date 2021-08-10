@@ -29,15 +29,27 @@ class RmTemp
         $tempSqlArr = [
             'advertise',
             'advertise_group',
-            'advertise_group',
             'column',
             'config',
             'config_group',
             'extends_category',
-            'extends_params',
             'navs',
             'navs_category',
         ];
+
+        $params_table  = [];
+        $list = $conn->query('SHOW TABLES like "%params%";"');
+        $tabList = $list->fetchAll();
+        if(is_array($tabList)){
+            foreach ($list->fetchAll() as $key => $val){
+                $params_table[] = $val[0];
+            }
+        }
+        //加表前缀
+        foreach ($tempSqlArr as $key => $val){
+            $tempSqlArr[$key] = $db['table_prefix'].$val;
+        }
+        $tempSqlArr = array_merge($params_table,$tempSqlArr);
         $mysql = "-- ----------------------------\r\n";
         $mysql .= "-- 日期：" . date("Y-m-d H:i:s", time()) . "\r\n";
         //将每个表的表结构导出到文件
