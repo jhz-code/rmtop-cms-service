@@ -6,9 +6,71 @@ namespace RmTop\RmCmsService\lib;
 
 use PDO;
 use think\db\exception\PDOException;
+use think\facade\Db;
 
 class RmTemp
 {
+
+
+    /**
+     * 初始化模版数据
+     */
+    static function iniTemp(){
+        //将这些表记录到一个数组
+        $tempSqlArr = [
+            'advertise',
+            'advertise_group',
+            'column',
+            'config',
+            'config_group',
+            'extends_category',
+            'navs',
+            'navs_category',
+            'extends_single',
+        ];
+        $db  = self::getDbConfig();
+        try {
+            $conn = new PDO("mysql:host=" . $db['host'] . ";dbname=".$db['name'].";port=" . $db['port'] . "", $db['user'], $db['pass']);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//设置调优参数，遇到错误抛出异常
+        } catch (PDOException $e) {
+            echo $e->getMessage();//如果连接异常则抛出错误信息
+            exit;
+        }
+
+        try {
+            $conn1 = new PDO("mysql:host=" . $db['host'] . ";dbname=".$db['name'].";port=" . $db['port'] . "", $db['user'], $db['pass']);
+            $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//设置调优参数，遇到错误抛出异常
+        } catch (PDOException $e) {
+            echo $e->getMessage();//如果连接异常则抛出错误信息
+            exit;
+        }
+
+        $params_table  = [];
+        $list = $conn1->query('SHOW TABLES like "%params%";"');
+        $tabList = $list->fetchAll();
+        if(is_array($tabList)){
+            foreach ($tabList as $key => $val){
+                $params_table[] = $val[0];
+            }
+        }
+        $tempSqlArr = array_merge($params_table,$tempSqlArr);
+
+
+        //遍历该数组
+        foreach ($tempSqlArr as $value) {
+            if (!empty($value)) { //数组最后一个是空数组，所以需要判断一下
+                if($value == $db['table_prefix']."config"){
+                    //保留系统配置
+                    Db::table($value)->where("group_id != 0")->delete();
+                }else{
+                    $sql = "truncate $value";
+                    $conn->exec($sql); //清空模版数据
+                }
+
+            }
+        }
+
+    }
 
 
     /**
