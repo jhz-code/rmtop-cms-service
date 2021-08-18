@@ -162,7 +162,7 @@ class RmTemp
         $mysql .= "-- ---------------------------------------------------\n\r";
         $filename = $to_file_name."/top_temp.sql"; //导出的文件名
         file_put_contents($filename, $mysql);//导出sql文件
-        self::BackupTemSql($savePath);
+        //self::BackupTemSql($savePath);
         return $filename;
     }
 
@@ -272,7 +272,8 @@ class RmTemp
                 $sql_stream = file_get_contents($sql);//读取整个文件内容
                 $sql_stream = rtrim($sql_stream);//去掉末尾空格
                 //切割单条sql语句生成数组
-                $sql_array = explode(";", $sql_stream);
+                $sql_array = explode(";\n", trim($sql_stream));
+
                 //遍历该数组
                 foreach ($sql_array as $value) {
                     if (!empty($value)) { //数组最后一个是空数组，所以需要判断一下
@@ -288,7 +289,6 @@ class RmTemp
                         }
 
                         $conn->exec($sql); //执行该语句
-                        // echo  "成功插入数据：<br/><per>" . $sql . ";<per/><br/><br/>";
                     }
                 }
                 return true;
