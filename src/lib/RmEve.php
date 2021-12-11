@@ -20,7 +20,7 @@ class RmEve
         try {
             $dbconn->getAttribute(PDO::ATTR_SERVER_INFO);
         } catch (PDOException $e) {
-            if (strpos($e->getMessage(), 'MySQL server has gone away') !== false) {
+            if (str_contains($e->getMessage(), 'MySQL server has gone away')) {
                 return false;
             }
         }

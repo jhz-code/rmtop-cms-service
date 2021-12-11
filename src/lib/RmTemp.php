@@ -138,9 +138,6 @@ class RmTemp
                 $values = "";//准备空字符串装载insert value值
                 $items = "";//准备空字符串装载该表字段名
                 while ($item_query = $iteams_query->fetch(PDO::FETCH_ASSOC)) { //用关联查询方式返回表中字段名和值的数组
-//                    if($table_name == $db['table_prefix']."extends_single"){
-//                        $item_query['text'] = "演示数据演示数据演示数据演示数据演示数据演示数据演示数据演示数据";
-//                    }
                     $item_names = array_keys($item_query);//取出该数组键值 即字段名
                     $item_names = array_map("addslashes", $item_names);//将特殊字符转译加\
                     $items = join('`,`', $item_names); //联合字段名 如：items1`,`item2 `符号为反引号 键盘1旁边 字段名用反引号括起
