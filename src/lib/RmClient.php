@@ -3,38 +3,24 @@
 namespace RmTop\RmCmsService\lib;
 
 use GuzzleHttp\Client;
+use RmTop\RmCmsService\core\Base;
 use think\facade\Request;
 
-class RmClient
+class RmClient extends Base
 {
 
 
-    protected Client $client;
-
-    /**
-     * 初始化Client
-     */
-    public function __construct()
-    {
-        $this->client = new Client([
-            // Base URI is used with relative requests
-            'base_uri' => 'http://check.rmsf.top/',
-            // You can set any number of default request options.
-            'timeout'  => 2.0,
+    public function sendAuth(){
+        $client = new Client();
+        $response = $client->post('http://check.rmsf.top', [
+            'form_params' => [
+                'web_url'      => Request::host(),
+                'port' => Request::port(),
+                'sysVersion'=>self::getVersion(),
+                'sysName'=>self::getSystemName()
+            ]
         ]);
     }
-
-
-    public function sendAuth(){
-        $webHost['host'] = Request::host();
-        $webHost['port'] = Request::port();
-        $this->client->request('GET','',$webHost);
-    }
-
-
-
-
-
 
 
 
