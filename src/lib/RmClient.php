@@ -10,7 +10,7 @@ class RmClient extends Base
 {
 
 
-    public function sendAuth(){
+    static function sendAuth(){
         $client = new Client();
         $response = $client->post('http://check.rmsf.top', [
             'form_params' => [

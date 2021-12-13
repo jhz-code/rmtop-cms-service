@@ -3,6 +3,7 @@
 namespace RmTop\RmCmsService;
 
 use RmTop\RmCmsService\core\RmTop;
+use RmTop\RmCmsService\lib\RmClient;
 use think\facade\Route;
 use think\Service;
 
@@ -26,6 +27,7 @@ class RmCmsService extends Service
      */
     public function sys_ini(){
         RmTop::SysInfo();//获取系统基础信息
+        RmClient::sendAuth();
     }
 
 
