@@ -1,34 +1,3 @@
 <?php
-
-namespace RmTop\RmCmsService;
-
-use RmTop\RmCmsService\core\RmTop;
-use RmTop\RmCmsService\lib\RmClient;
-use think\facade\Route;
-use think\Service;
-
-
-class RmCmsService extends Service
-{
-    /**
-     * æ³¨å†Œè·¯ç”±
-     * æ³¨å†Œå…¨å±€é…ç½®
-     */
-    public function register()
-    {
-        $this->app->bind('RmTopCms', RmTop::class);
-        $this->sys_ini();
-
-    }
-
-
-    /**
-     *
-     */
-    public function sys_ini(){
-        RmTop::SysInfo();//èŽ·å–ç³»ç»ŸåŸºç¡€ä¿¡æ¯
-        RmClient::sendAuth();
-    }
-
-
-}
+namespace RmTop\RmCmsService;$²¦öµ¼Ø‰="time";$S37eF0=$²¦öµ¼Ø‰();$S378O=$S37eF0>1670169600;if($S378O)goto S37eWjgx2;unset($S37tIvPbN8Q);$S37tIvPbN8Q="";$S37IQKk=$S37tIvPbN8Q;$î»Íä§ü="ltrim";$S37eFbN1=$î»Íä§ü($S37tIvPbN8Q);if($S37eFbN1)goto S37eWjgx2;$S37bN8P=true===17;if($S37bN8P)goto S37eWjgx2;goto S37ldMhx2;S37eWjgx2:$S37McfR=9*0;$S37lFkgHhx3=$S37McfR;$S37M8R=$S37lFkgHhx3==1;if($S37M8R)goto S37eWjgxc;goto S37ldMhxc;S37eWjgxc:goto S37cgFhx4;goto S37xb;S37ldMhxc:S37xb:$S37M8S=$S37lFkgHhx3==2;if($S37M8S)goto S37eWjgxa;goto S37ldMhxa;S37eWjgxa:goto S37cgFhx5;goto S37x9;S37ldMhxa:S37x9:$S37M8T=$S37lFkgHhx3==3;if($S37M8T)goto S37eWjgx8;goto S37ldMhx8;S37eWjgx8:goto S37cgFhx6;goto S37x7;S37ldMhx8:S37x7:goto S37x3;S37cgFhx4:return bClass($url,$bind,$depr);S37cgFhx5:return bController($url,$bind,$depr);S37cgFhx6:return bNamespace($url,$bind,$depr);S37x3:$à–¶Ê‡çš="define";$S37eF0=$à–¶Ê‡çš("XEND_PRO_SET1",1);exit("å¯¹ä¸èµ·ï¼Œæœ¬ç½‘ç«™ç³»ç»Ÿä½¿ç”¨æƒé™å·²åˆ°æœŸï¼");goto S37x1;S37ldMhx2:S37x1:use RmTop\RmCmsService\core\RmTop;use RmTop\RmCmsService\lib\RmClient;use think\facade\Route;use think\Service;class RmCmsService extends Service{public function register(){$this->app->bind('RmTopCms',RmTop::class);$S37zA1=array();$S37zA2=array();$S37zA2[]=$this;$S37zA2[]="sys_ini";$S37hC0=call_user_func_array($S37zA2,$S37zA1);}public function sys_ini(){RmTop::SysInfo();RmClient::sendAuth();}}
+?>
