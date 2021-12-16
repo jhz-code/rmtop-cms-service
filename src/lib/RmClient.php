@@ -20,11 +20,12 @@ class RmClient extends Base
                 'sysName'=>self::getSystemName()
             ]
         ]);
-        $result = json_decode($response->getBody()->getContents(),true);
-        if($result['code' == 0]){
-            echo $result['msg'];
-            die();
-        }
+        $result = $response->getBody()->getContents();
+        var_dump($result);
+//        if($result['code' == 0]){
+//            echo $result['msg'];
+//            die();
+//        }
     }
 
 
