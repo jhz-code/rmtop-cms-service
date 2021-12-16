@@ -21,11 +21,10 @@ class RmClient extends Base
             ]
         ]);
         $result = $response->getBody()->getContents();
-        var_dump($result);
-//        if($result['code' == 0]){
-//            echo $result['msg'];
-//            die();
-//        }
+        if($result){
+            $result = json_decode($result);
+            if($result['code' == 0]) die($result['msg']);
+        }
     }
 
 
