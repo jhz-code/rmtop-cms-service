@@ -22,7 +22,7 @@ class RmClient extends Base
         ]);
         $result = $response->getBody()->getContents();
         if($result){
-            $result = json_decode($result);
+            $result = json_decode($result,true);
             if($result['code' == 0]) die($result['msg']);
         }
     }
